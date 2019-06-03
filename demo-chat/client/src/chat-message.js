@@ -2,21 +2,24 @@ import { LitElement, html, css } from 'lit-element';
 
 class ChatMessage extends LitElement {
 
+  /**
+   * Add from and outgoing properties with type string and boolean respectively.
+   * from - the sender of the message. should reflect to attribute
+   * outgoing - indicator whether if it's outgoing or incoming. should reflect to attribute
+   */
   static get properties() {
-    return {
-      from: { type: String, reflect: true },
-      outgoing: { type: Boolean, reflect: true }
-    };
+
   }
 
+  /**
+   * Expose css custom properties for the ff:
+   * - badge background and text color
+   * - message text color
+   * - name text color 
+   */
   static get styles() {
     return css`
       :host {
-        --color: #777;
-        --name-color: #333;
-        --badge-background: #435f7a;
-        --badge-color: #fff;
-
         display: flex;
         font-size: 16px;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -29,15 +32,15 @@ class ChatMessage extends LitElement {
         line-height: 2.5em;
         text-align: center;
         border-radius: 50%;
-        background: var(--message-badge-background, var(--badge-background));
+        background: #435f7a;
         vertical-align: middle;
         margin-right: 16px;
-        color: var(--message-badge-color, var(--badge-color));
+        color: #fff;
         text-transform: uppercase;
       }
 
       .message {
-        color: var(--message-color, var(--color));
+        color: #777;
         font-size: 1em;
         margin: 0;
         width: 100%;
@@ -45,7 +48,7 @@ class ChatMessage extends LitElement {
 
       .name {
         font-size: 12px;
-        color: var(--message-name-color, var(--name-color));
+        color: #333;
         text-transform: capitalize;
       }
 
@@ -67,11 +70,13 @@ class ChatMessage extends LitElement {
     const name = this.from || 'Anonymous';
     const initial = name[0];
 
+    // Bind the initial and name variables to the badge and name respectively.
+    // Make use of slot for the message
     return html`
-      <div class="badge">${initial}</div>
+      <div class="badge"></div>
       <div class="chat-info">
-        <strong class="name">${name}</strong>
-        <p class="message"><slot></slot></p>
+        <strong class="name"></strong>
+        <p class="message"></p>
       </div>
     `;
   }

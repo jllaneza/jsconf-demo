@@ -25,27 +25,15 @@
     constructor() {
       super();
 
-      this._onNewTodoKeyup = this._onNewTodoKeyup.bind(this);
-      this._onTodoListChange = this._onTodoListChange.bind(this);
+      // Bind the _onNewTodoKeyup and _onTodoListChange to current context
     }
 
     connectedCallback() {
-      if (!this.childElementCount) {
-        this.appendChild(template.content.cloneNode(true));
-      }
-
-      this._todoList = this.querySelector('todo-list');
-      this._newTodoInput = this.querySelector('.new-todo');
-      this._mainSection = this.querySelector('.main');
-      this._todoCount = this.querySelector('.todo-count strong');
-
-      this._newTodoInput.addEventListener('keyup', this._onNewTodoKeyup);
-      this._todoList.addEventListener('todolist-change', this._onTodoListChange);
+      // Append the template to the host, variable reference declarations and add event listeners.
     }
 
     disconnectedCallback() {
-      this._newTodoInput.removeEventListener('keyup', this._onNewTodoKeyup);
-      this._todoList.removeEventListener('todolist-change', this._onTodoListChange);
+      // Do the necessary cleanup, remove event listeners.
     }
 
     _onNewTodoKeyup(event) {
@@ -77,5 +65,5 @@
 
   }
 
-  customElements.define('todo-demo', TodoDemo);
+  // Define the new custom element as todo-demo
 })();

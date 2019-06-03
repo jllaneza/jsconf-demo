@@ -4,12 +4,12 @@ import './chat-room';
 
 class ChatDemo extends LitElement {
 
-  static get properties() {
-    return {
-      joined: { type: Boolean },
-      username: { type: String }
-    }
-  }
+  /**
+   * Add joined and username properties with type boolean and string respectively
+   * joined - indicator whether the user has entered the room or not. default to false
+   * username - name/alias of the user who joined the room
+   */
+  static get properties() {}
 
   static get styles() {
     return css`
@@ -21,20 +21,21 @@ class ChatDemo extends LitElement {
     `;
   }
 
-  constructor() {
-    super();
-    this.joined = false;
-  }
-
+  /**
+   * set joined property to true and assign input value to username property
+   */
   handleRoomEnter(event) {
-    this.username = event.detail.username;
-    this.joined = true;
+
   }
 
   render() {
     return html`
-      <chat-lobby ?hidden=${this.joined} @room-enter=${this.handleRoomEnter}></chat-lobby>
-      <chat-room ?hidden=${!this.joined} .username=${this.username}></chat-room>
+      <!--
+        Show chat-lobby and hide chat-room by default using boolean attribute binding.
+        Listen to 'room-enter' event of chat-lobby -->
+      <chat-lobby></chat-lobby>
+      <!-- bind the username to chat-room using property binding -->
+      <chat-room></chat-room>
     `;
   }
 }

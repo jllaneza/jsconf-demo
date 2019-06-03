@@ -14,8 +14,7 @@
 
     constructor() {
       super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
+      // append template to the shadow root
 
       this._onSlotChange = this._onSlotChange.bind(this);
 
@@ -23,31 +22,20 @@
     }
 
     connectedCallback() {
-      this._slot.addEventListener('slotchange', this._onSlotChange);
+      // listen to slotchange
     }
 
     disconnectedCallback() {
-      this._slot.removeEventListener('slotchange', this._onSlotChange);
+      // clean up slotchange listener
     }
 
     _onSlotChange(_) {
       // Remove all nodes that are unknown to todo-list
-      this.childNodes.forEach(node => {
-        if (!(node.nodeType === 1 && node.tagName === 'TODO-ITEM')) {
-          node.remove();
-        }
-      });
-
-      const todoItemElementCount = this._slot.assignedNodes().length;
-
-      this.dispatchEvent(new CustomEvent('todolist-change', {
-        detail: {
-          todoItemElementCount
-        }
-      }));
+      
+      // Dispatch custom event 'todolist-change' with todoItemElementCount value
     }
 
   }
 
-  customElements.define('todo-list', TodoList);
+  // Define the new custom element as todo-list
 })();

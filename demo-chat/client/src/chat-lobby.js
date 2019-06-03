@@ -2,18 +2,17 @@ import { LitElement, html, css } from 'lit-element';
 
 class ChatLobby extends LitElement {
 
+  /**
+   * Expose css custom properties for the ff:
+   * - host background color
+   * - input color and placeholder color
+   * - button background, color and hover background 
+   */
   static get styles() {
     return css`
       :host {
-        --background: #2c3e50;
-        --input-color: #fff;
-        --input-placeholder-color: #6D7781;
-        --button-color: #fff;
-        --button-background: #1FCE6D;
-        --button-hover-background: #16aa56;
-
         display: block;
-        background: var(--lobby-background, var(--background));
+        background: #2c3e50;
         height: 100%;
         width: 100%;
       }
@@ -38,34 +37,34 @@ class ChatLobby extends LitElement {
         border: 0;
         border-bottom: 1px solid #f5f5f5;
         outline: none;
-        color: var(--lobby-input-color, var(--input-color));
+        color: #fff;
         font-size: 16px;
       }
 
       ::-webkit-input-placeholder {
-        color: var(--lobby-input-placeholder-color, var(--input-placeholder-color));
+        color: #6D7781;
         font-size: 12px;
       }
 
       button {
-        background: var(--lobby-button-background, var(--button-background));
+        background: #1FCE6D;
         border: 0;
         width: 350px;
         height: 40px;
         border-radius: 3px;
-        color: var(--lobby-button-color, #fff);
+        color: #fff;
         font-size: 12px;
         cursor: pointer;
       }
 
       button:hover {
-        background: var(--lobby-button-hover-background, var(--button-hover-background));
+        background: #16aa56;
       }
     `;
   }
 
   firstUpdated() {
-    this._input = this.shadowRoot.querySelector('input');
+    // Add reference to input
   }
 
   handleKeyPress(e) {
@@ -84,17 +83,16 @@ class ChatLobby extends LitElement {
       return;
     }
 
-    let event = new CustomEvent('room-enter', {
-      detail: { username }
-    });
-    this.dispatchEvent(event);
+    // Dispatch a 'room-enter' custom event with the username
   }
 
   render() {
     return html`
       <div class="container">
-        <input @keypress=${this.handleKeyPress} placeholder="Username"/>
-        <button @click=${this.handleClick}>Join Room</button>
+        <!-- listen to keypress event -->
+        <input placeholder="Username"/>
+        <!-- listen to click event -->
+        <button>Join Room</button>
       </div>
     `;
   }
